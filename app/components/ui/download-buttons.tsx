@@ -11,7 +11,7 @@ export function DownloadButtons() {
         className="w-full sm:w-auto transition hover:scale-105"
       >
         <Image 
-          src="/google-play.svg" 
+          src="/Google_Play_Store_badge_EN.svg.webp" 
           alt="Get it on Google Play" 
           width={180}
           height={70}
@@ -25,7 +25,7 @@ export function DownloadButtons() {
         className="w-full sm:w-auto transition hover:scale-105"
       >
         <Image 
-          src="/app-store.svg" 
+          src="/App-store-badge.svg" 
           alt="Download on the App Store" 
           width={180}
           height={70}
