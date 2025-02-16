@@ -1,7 +1,7 @@
 "use client";
-import { cn } from "../../../lib/utils";
+import { useEffect, useState } from "react";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useEffect } from "react";
+import { cn } from "../../../lib/utils";
 
 export const TypewriterEffect = ({
   words,
@@ -17,59 +17,67 @@ export const TypewriterEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
+  const [displayedWords, setDisplayedWords] = useState<string[]>([]);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+
+  useEffect(() => {
+    const animateWords = () => {
+      if (currentWordIndex < words.length) {
+        const currentWord = words[currentWordIndex].text;
+        if (currentCharIndex < currentWord.length) {
+          setDisplayedWords(prev => {
+            const newWords = [...prev];
+            if (!newWords[currentWordIndex]) {
+              newWords[currentWordIndex] = '';
+            }
+            newWords[currentWordIndex] += currentWord[currentCharIndex];
+            return newWords;
+          });
+          setCurrentCharIndex(prev => prev + 1);
+        } else {
+          setCurrentWordIndex(prev => prev + 1);
+          setCurrentCharIndex(0);
+        }
+      }
+    };
+
+    const timer = setTimeout(animateWords, 100);
+    return () => clearTimeout(timer);
+  }, [currentWordIndex, currentCharIndex, words]);
+
   useEffect(() => {
     if (isInView) {
-      animate(
-        "span",
-        {
-          opacity: 1,
-        },
-        {
-          duration: 2,
-          delay: stagger(0.2),
-        }
-      );
+      const sequence = words.map((_, i) => [
+        `[data-word="${i}"]`,
+        { opacity: 1, y: 0 },
+        { duration: 0.3 }
+      ]);
+      animate(sequence as any);
     }
-  }, [isInView]);
-
-  const renderWords = () => {
-    return (
-      <motion.div ref={scope} className="inline">
-        {words.map((word, idx) => {
-          return (
-            <motion.span
-              key={`${word}-${idx}`}
-              className={cn(
-                "dark:text-white text-black opacity-0",
-                word.className
-              )}
-            >
-              {word.text}
-              {idx < words.length - 1 ? " " : ""}
-            </motion.span>
-          );
-        })}
-      </motion.div>
-    );
-  };
+  }, [isInView, animate, words]);
 
   return (
-    <div
-      className={cn(
-        "text-base sm:text-xl md:text-3xl lg:text-5xl font-bold text-center",
-        className
+    <div ref={scope} className={cn("flex flex-wrap justify-center gap-2", className)}>
+      {words.map((word, idx) => (
+        <motion.span
+          key={idx}
+          data-word={idx}
+          initial={{ opacity: 0, y: 10 }}
+          className={cn(
+            "text-4xl md:text-5xl font-bold",
+            word.className
+          )}
+        >
+          {displayedWords[idx] || ''}
+          {idx < words.length - 1 ? " " : ""}
+        </motion.span>
+      ))}
+      {currentWordIndex === words.length && (
+        <span className={cn("text-4xl md:text-5xl", cursorClassName)}>
+          |
+        </span>
       )}
-    >
-      {renderWords()}
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-        className={cn(
-          "inline-block rounded-sm w-[4px] h-4 md:h-6 lg:h-10 bg-blue-500",
-          cursorClassName
-        )}
-      />
     </div>
   );
 }; 

@@ -1,4 +1,6 @@
 "use client";
+import React from "react";
+import { cn } from "../../../lib/utils";
 import { useEffect, useState } from "react";
 import { loadFull } from "tsparticles";
 import type { Container, Engine } from "tsparticles-engine";
@@ -6,19 +8,21 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 
 export const SparklesCore = ({
   id,
+  className,
   background,
   minSize,
   maxSize,
-  particleDensity,
-  className,
+  particleDensity = 33,
+  color,
   particleColor,
 }: {
-  id: string;
-  background: string;
-  minSize: number;
-  maxSize: number;
-  particleDensity: number;
+  id?: string;
   className?: string;
+  background?: string;
+  minSize?: number;
+  maxSize?: number;
+  particleDensity?: number;
+  color?: string;
   particleColor?: string;
 }) => {
   const [init, setInit] = useState(false);
@@ -37,83 +41,90 @@ export const SparklesCore = ({
 
   if (init) {
     return (
-      <Particles
-        id={id}
-        className={className}
-        loaded={particlesLoaded}
-        options={{
-          background: {
-            color: {
-              value: background,
+      <div
+        className={cn(
+          "absolute inset-0 z-0 opacity-50 pointer-events-none",
+          className
+        )}
+      >
+        <Particles
+          id={id}
+          className={className}
+          loaded={particlesLoaded}
+          options={{
+            background: {
+              color: {
+                value: background,
+              },
             },
-          },
-          fullScreen: {
-            enable: false,
-          },
-          fpsLimit: 120,
-          interactivity: {
-            events: {
-              onClick: {
+            fullScreen: {
+              enable: false,
+            },
+            fpsLimit: 120,
+            interactivity: {
+              events: {
+                onClick: {
+                  enable: true,
+                  mode: "push",
+                },
+                onHover: {
+                  enable: true,
+                  mode: "repulse",
+                },
+                resize: true,
+              },
+              modes: {
+                push: {
+                  quantity: 4,
+                },
+                repulse: {
+                  distance: 200,
+                  duration: 0.4,
+                },
+              },
+            },
+            particles: {
+              color: {
+                value: particleColor,
+              },
+              links: {
+                color: particleColor,
+                distance: 150,
                 enable: true,
-                mode: "push",
+                opacity: 0.5,
+                width: 1,
               },
-              onHover: {
+              move: {
+                direction: "none",
                 enable: true,
-                mode: "repulse",
+                outModes: {
+                  default: "bounce",
+                },
+                random: false,
+                speed: 1,
+                straight: false,
               },
-              resize: true,
-            },
-            modes: {
-              push: {
-                quantity: 4,
+              number: {
+                density: {
+                  enable: true,
+                  area: particleDensity,
+                },
+                value: 80,
               },
-              repulse: {
-                distance: 200,
-                duration: 0.4,
+              opacity: {
+                value: 0.5,
+              },
+              shape: {
+                type: "circle",
+              },
+              size: {
+                value: { min: minSize, max: maxSize },
               },
             },
-          },
-          particles: {
-            color: {
-              value: particleColor,
-            },
-            links: {
-              color: particleColor,
-              distance: 150,
-              enable: true,
-              opacity: 0.5,
-              width: 1,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outModes: {
-                default: "bounce",
-              },
-              random: false,
-              speed: 1,
-              straight: false,
-            },
-            number: {
-              density: {
-                enable: true,
-                area: particleDensity,
-              },
-              value: 80,
-            },
-            opacity: {
-              value: 0.5,
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              value: { min: minSize, max: maxSize },
-            },
-          },
-          detectRetina: true,
-        }}
-      />
+            detectRetina: true,
+          }}
+        />
+      </div>
     );
   }
 
