@@ -89,6 +89,7 @@ export function HeroSection() {
                 {/* Rating & Reviews */}
                 <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-100 shadow-sm">
                   <div className="flex items-center">
+                    <span className="text-sm font-medium text-gray-700">4.8/5 from 1,000+ reviews</span>
                   </div>
                 </div>
               </motion.div>
@@ -98,16 +99,5 @@ export function HeroSection() {
       </div>
       <BackgroundBeams />
     </section>
-  );
-}
-
-function FeatureHighlight({ icon, text, position }: { icon: string; text: string; position: 'left' | 'right' }) {
-  return (
-    <div className={`hidden md:flex items-center gap-2 ${position === 'right' ? 'flex-row' : 'flex-row-reverse'}`}>
-      <span className="material-icons text-white/80">
-        {icon}
-      </span>
-      <span className="text-sm text-white/80">{text}</span>
-    </div>
   );
 } 

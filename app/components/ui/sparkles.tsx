@@ -1,20 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
-import { useEffect, useState } from "react";
 import { loadFull } from "tsparticles";
-import type { Container, Engine } from "tsparticles-engine";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 
 export const SparklesCore = ({
-  id,
+  id = 'sparkles-core',
   className,
-  background,
-  minSize,
-  maxSize,
+  background = 'transparent',
+  minSize = 0.5,
+  maxSize = 1.5,
   particleDensity = 33,
-  color,
-  particleColor,
+  particleColor = '#22c55e',
 }: {
   id?: string;
   className?: string;
@@ -22,7 +19,6 @@ export const SparklesCore = ({
   minSize?: number;
   maxSize?: number;
   particleDensity?: number;
-  color?: string;
   particleColor?: string;
 }) => {
   const [init, setInit] = useState(false);
@@ -35,10 +31,6 @@ export const SparklesCore = ({
     });
   }, []);
 
-  const particlesLoaded = async (container?: Container) => {
-    console.log(container);
-  };
-
   if (init) {
     return (
       <div
@@ -50,7 +42,6 @@ export const SparklesCore = ({
         <Particles
           id={id}
           className={className}
-          loaded={particlesLoaded}
           options={{
             background: {
               color: {
@@ -71,7 +62,9 @@ export const SparklesCore = ({
                   enable: true,
                   mode: "repulse",
                 },
-                resize: true,
+                resize: {
+                  enable: true,
+                },
               },
               modes: {
                 push: {
@@ -107,9 +100,8 @@ export const SparklesCore = ({
               number: {
                 density: {
                   enable: true,
-                  area: particleDensity,
                 },
-                value: 80,
+                value: particleDensity,
               },
               opacity: {
                 value: 0.5,
@@ -118,7 +110,10 @@ export const SparklesCore = ({
                 type: "circle",
               },
               size: {
-                value: { min: minSize, max: maxSize },
+                value: { 
+                  min: minSize, 
+                  max: maxSize 
+                },
               },
             },
             detectRetina: true,

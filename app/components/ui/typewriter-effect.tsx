@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, stagger, useAnimate, useInView } from "framer-motion";
+import { motion, useAnimate, useInView, AnimationSequence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 
 export const TypewriterEffect = ({
@@ -48,12 +48,12 @@ export const TypewriterEffect = ({
 
   useEffect(() => {
     if (isInView) {
-      const sequence = words.map((_, i) => [
+      const sequence: AnimationSequence = words.map((_, i) => [
         `[data-word="${i}"]`,
         { opacity: 1, y: 0 },
-        { duration: 0.3 }
+        { duration: 0.3, ease: "easeOut" }
       ]);
-      animate(sequence as any);
+      animate(sequence);
     }
   }, [isInView, animate, words]);
 

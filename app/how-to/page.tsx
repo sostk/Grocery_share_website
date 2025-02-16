@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { MaterialIcon } from "../components/ui/material-icon";
 import { Navigation } from "../components/ui/navigation";
 import { Footer } from "../components/ui/footer";
