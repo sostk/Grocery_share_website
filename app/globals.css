@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --primary: #22c55e;
+  --primary-foreground: #ffffff;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --card: rgba(255, 255, 255, 0.9);
+  --card-foreground: #1a1a1a;
+  --border: #e2e8f0;
+  --accent: #16a34a;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600;
+}
+
+.glass-card {
+  @apply bg-white/90 backdrop-blur-md border border-gray-100 shadow-lg;
+}
+
+.glass-button {
+  @apply bg-white/90 backdrop-blur-md hover:bg-white text-gray-900 border border-gray-100 shadow-md hover:shadow-lg;
+}
+
+.section-spacing {
+  @apply py-24;
+}
+
+.container-padding {
+  @apply px-6 md:px-8;
+}
