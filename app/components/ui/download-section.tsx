@@ -24,7 +24,7 @@ export function DownloadSection() {
                 Get it on Google Play Store
               </p>
               <a
-                href="https://play.google.com/store/apps/details?id=YOUR_GOOGLE_PLAY_APP_ID"
+                href="https://play.google.com/store/apps/details?id=com.easylife.groceryshare"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 rounded-lg glass-button transition"
