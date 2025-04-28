@@ -19,7 +19,7 @@ export function DownloadButtons() {
         />
       </a>
       <a
-        href="https://apps.apple.com/app/YOUR_APP_ID"
+        href="https://apps.apple.com/us/app/grocery-share/id6744265823"
         target="_blank"
         rel="noopener noreferrer"
         className="w-full sm:w-auto transition hover:scale-105"
