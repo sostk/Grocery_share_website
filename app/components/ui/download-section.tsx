@@ -48,7 +48,7 @@ export function DownloadSection() {
                 Get it on the App Store
               </p>
               <a
-                href="https://apps.apple.com/app/YOUR_APP_ID"
+                href="https://apps.apple.com/us/app/grocery-share/id6744265823"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 rounded-lg glass-button transition"
